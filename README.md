@@ -54,7 +54,7 @@ Clone the repository:
 
 Bash
 
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/bablu456/Data-Structure-and-Collections-Hub.git
 Open the project in your favorite IDE.
 
 Run the files: Navigate to any package and run the main method in the example files.
