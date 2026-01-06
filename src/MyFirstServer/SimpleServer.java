@@ -30,13 +30,14 @@ public class SimpleServer {
     static class HelloHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            // A. Response tayar karo
+            // A. Response
             String response = "Hello Bablu! Welcome to Backend Development 🌍";
 
-            // B. Headers set karo (200 OK message)
-            exchange.sendResponseHeaders(200, response.length());
+            // B. Headers set karo (IMPORTANT: getBytes().length use karo)
+            // Ye line fix hai 👇
+            exchange.sendResponseHeaders(200, response.getBytes().length);
 
-            // C. Data bhejo (Stream ke through)
+            // C. Data bhejo
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
