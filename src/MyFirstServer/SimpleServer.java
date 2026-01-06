@@ -14,6 +14,8 @@ public class SimpleServer {
         // 1. Server Create karo (Port 8000 par sunega)
         // Spring Boot mein ye kaam "Tomcat" khud karta hai
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        // Naya rasta: Calculation ke liye
+        server.createContext("/calculate", new MathHandler());
 
         System.out.println("🚀 Server started on port 8000...");
 
@@ -38,6 +40,35 @@ public class SimpleServer {
             exchange.sendResponseHeaders(200, response.getBytes().length);
 
             // C. Data bhejo
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+
+    static class MathHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            String query = exchange.getRequestURI().getQuery();
+            String response = "";
+
+            if (query != null && query.contains("num=")) {
+                String[] parts = query.split("=");
+                String numberString = parts[1];
+
+                try {
+                    int number = Integer.parseInt(numberString);
+                    int square = number * number;
+                    response = "Success! Square of " + number + " is " + square + ".";
+
+                } catch (NumberFormatException e) {
+                    response = "Error: Bhai number bhej, ye kya bhej rha ha.";
+                }
+            } else {
+                response = "Please Provide a number like this: /calculate?num=5";
+            }
+
+            exchange.sendResponseHeaders(200, response.getBytes().length);
             OutputStream os = exchange.getResponseBody();
             os.write(response.getBytes());
             os.close();
