@@ -33,6 +33,16 @@ public class ExpenseManager {
                 default:
                     System.out.println("Invalid Option!");
             }
+
+        }
+    }
+    static class Expense{
+        String description;
+        double amount;
+
+        public Expense (String description, double amount){
+            this.description = description;
+            this.amount = amount;
         }
     }
 }
