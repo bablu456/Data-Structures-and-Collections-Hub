@@ -1,8 +1,11 @@
 package SmallSoftware;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ExpenseManager {
+    static List<Expense> expenseList = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -19,11 +22,17 @@ public class ExpenseManager {
 
             switch (choice){
                 case 1:
-                    System.out.println("Feature coming soon...");
-                    break;
+                    System.out.print("Kahan kharch kiya? (Desc): ");
+                    String desc = sc.nextLine();
+                    System.out.print("Kitna udaya? (Amount): ");
+                    double amount = sc.nextDouble();
+                    expenseList.add(new Expense(desc, amount));
+                    System.out.println("✅ Added!");                    break;
                 case 2:
-                    System.out.println("List is empty.");
-                    break;
+                    System.out.println("--- YOUR KHARCHA ---");
+                    for(Expense e : expenseList) {
+                        System.out.println(e);
+                    }                    break;
                 case 3:
                     System.out.println("Total: ₹0");
                     break;
